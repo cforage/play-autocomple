@@ -58,7 +58,7 @@ object Application extends Controller {
   //}
 
   // curl   --header "Content-type: application/json" --request POST  --data '{"name": "Guillaume"}' http://localhost:9000/sayHello
-  def sayHello = Action { request =>
+  def sayHello2 = Action { request =>
     request.body.asJson.map { json =>
       (json \ "name").asOpt[String].map { name =>
         Ok("Hello " + name)
@@ -70,6 +70,14 @@ object Application extends Controller {
     }
   }
 
+  def sayHello = Action(parse.json) { request =>
+    (request.body \ "name").asOpt[String].map { name =>
+      println("hello " + name)
+      Ok("Hello " + name)
+    }.getOrElse {
+      BadRequest("Missing parameter [name]")
+    }
+  }
 }
 
 case class Product(id: Int, title: String, pricing: Pricing)

@@ -27,6 +27,26 @@ myAppModule.controller('ProductController',
       }else{
         return $scope.products;
       }
+    }// end getProducts
+      
+    var postData = '{"name": "jon"}'
+    $scope.updateProduct=function(){
+    	console.log('update product........ ' + $scope.personName)
+    	var nm = $scope.personName
+    	var dt = {
+    		name: nm
+    	}
+    	console.log('my data ' + JSON.stringify(dt))
+    	$http({
+            url: '/sayHello',
+            method: "POST",
+            data: dt,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function (data, status, headers, config) {
+                $scope.persons = data; // assign  $scope.persons here as promise is resolved here 
+            }).error(function (data, status, headers, config) {
+                $scope.status = status;
+            });
     }
 });
 
