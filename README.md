@@ -3,7 +3,7 @@ Simple listing item page with autocomplete search and inline updating use Scala 
 To prepare the database, do import:
 mongoimport --db <catalogdb> --collection catalogs --file catalog.json
 
-Update application.conf of following key to poin to correct database
+Update application.conf of following key to poin to correct database:
 mongo.database=<catalogdb>
 
 Please note, currently mongodb server that will be used should disable the authentication, because the code has not handled the mongodb authentication yet.
