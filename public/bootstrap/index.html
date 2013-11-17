@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="res/css/bootstrap.css" rel="stylesheet">
+    <link href="res/css/angular-growl.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="style.css" rel="stylesheet">
@@ -37,20 +38,22 @@
 
       <h3>Manage Products</h3>
 
-      <form class="form-horizontal" role="form">
+      <form class="form-horizontal" role="form" name="searchForm">
         <div class="box-outer">
           <div class="box">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error': searchForm.productId.$invalid && !searchForm.productId.$pristine}">
               <label class="col-md-4  control-label">Product Id</label>
               <div class="col-md-8">
-                <input type="text" class="form-control" ng-model="selected" ng-blur="updateProduct()" 
-                typeahead="p as p.ids for p in getProducts($viewValue) | filter:$viewValue | limitTo:8" pattern="^[0-9]{4}" required>
+                <input type="text" name="productId" class="form-control" ng-model="selected" 
+                typeahead="p as p.ids for p in getProducts($viewValue) | filter:$viewValue | limitTo:8" ng-pattern="/^[0-9]*/" required>
+                <span ng-show="searchForm.productId.$error.required && !searchForm.productId.$pristine" class="help-inline">Required</span>
+                <span ng-show="searchForm.productId.$invalid && !searchForm.productId.$pristine" class="help-inline">Id format is invalid</span>
               </div>
             </div>
           </div>
         </div>
       </form>
-      <form class="form-horizontal" role="form">
+      <form class="form-horizontal" role="form"  name="productForm" ng-submit="updateProduct(productForm)">
         <div class="box-outer">
           <div class="box">
             <div class="form-group">
@@ -59,19 +62,27 @@
                 <p class="form-control-static">{{selected.id}}</p>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error': productForm.title.$invalid && !productForm.title.$pristine}">
               <label class="col-md-4  control-label">Title</label>
               <div class="col-md-8">
-                <input type="text" class="form-control" value="{{selected.title}}" ng-model="selected.title" ng-blur="updateProduct()" ng-disabled="selected == null">
+                <input type="text" name="title" class="form-control" value="{{selected.title}}" ng-model="selected.title"
+                ng-disabled="selected == null" required ng-pattern="/^[a-zA-Z].*/">
+                <span ng-show="productForm.title.$error.required  && !productForm.title.$pristine" class="help-inline">Required</span>
+                <span ng-show="productForm.title.$invalid  && !productForm.title.$pristine" class="help-inline">Title must start with letter</span>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error': productForm.price.$invalid && !productForm.price.$pristine}">
               <label class="col-md-4  control-label">Price</label>
               <div class="col-md-8">
                 <div class="input-group">
                   <span class="input-group-addon">$</span>
-                  <input type="text" class="form-control" value="{{selected.pricing.price}}" ng-model="selected.price" ng-disabled="selected == null">
-                </div>
+                  <input type="number" name="price"  class="form-control" value="{{selected.pricing.price}}" min="0.0" step="0.001"
+                  ng-model="selected.pricing.price" ng-disabled="selected == null"  ng-pattern="/\d+\.?\d*/" required price-validate>
+                  </div>
+                  <span ng-show="productForm.price.$error.required && !productForm.price.$pristine" class="help-inline">Required</span>
+                  <span ng-show="productForm.price.$error.pattern">Not valid number!</span>
+                  <span ng-show="productForm.price.$error.cost" class="help-inline">Price must be >= cost</span>
+                  
               </div>
             </div>
             <div class="form-group">
@@ -82,8 +93,9 @@
             </div>
           </div>
         </div>
+        <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
       </form>
-
+	<div growl></div>
       <div class="footer">
         <p>© 2013</p>
       </div>
@@ -97,7 +109,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="res/js/angular/angular.js"></script>
-    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+    <script src="res/js/ui-bootstrap-tpls-0.6.0.js"></script>
+    <script src="res/js/angular-growl.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

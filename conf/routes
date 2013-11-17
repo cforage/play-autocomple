@@ -3,18 +3,10 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET    /                controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /pages/*file               controllers.Assets.at(path="/public", file)
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
-
-GET  	/products/:id	        	controllers.Application.listProducts(id: Int)
-
-
-POST   /sayHello					controllers.Application.sayHello
-
-POST   /updateProduct					controllers.Application.updateProduct
-#POST /updateProduct controllers.Application.updateProduct()
-
-#GET     /home/*file                       controllers.Assets.at(path="/app/view/bootstrap", file)
+GET    /pages/*file     controllers.Assets.at(path="/public", file)
+GET    /assets/*file    controllers.Assets.at(path="/public", file)
+GET    /products/:id    controllers.Application.getProducts(id: Int)
+POST   /updateProduct   controllers.Application.updateProduct

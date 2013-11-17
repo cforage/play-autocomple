@@ -1,8 +1,34 @@
-var myAppModule = angular.module('productModule', ['ui.bootstrap']);
+var myAppModule = angular.module('productModule', ['ui.bootstrap','angular-growl']);
+
+myAppModule.directive('priceValidate', function() {
+return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+    	elm.on('blur', function (evt) {
+    		console.dir(scope.selected)
+    	if(scope.selected.pricing.price >= scope.selected.pricing.cost) {
+            ctrl.$setValidity('cost', true);
+            return scope.selected.pricing.price;
+            console.log('valid price')
+        } else {
+            ctrl.$setValidity('cost', false);                    
+            return undefined;
+            console.log('invalid price')
+        }
+    	})
+    }
+}
+});
+
+myAppModule.config(['growlProvider', function(growlProvider) {
+    growlProvider.globalTimeToLive(2000);
+}]);
+
 myAppModule.controller('ProductController',
-    function($scope, $http) {
-      $scope.getProducts=function(term){
-        console.log(term);
+    function($scope, $http, growl) {
+    
+	
+	$scope.getProducts=function(term){
         //var url = 'catalog-comma.json';
         var url = '/products/' + term;
         $http.get(url)
@@ -25,8 +51,10 @@ myAppModule.controller('ProductController',
       }
     }// end getProducts
       
-  $scope.updateProduct=function(){
-  	console.log('update product........ ' + $scope.selected.title)
+  $scope.updateProduct=function(form){
+	if(!form.$valid){
+		return;
+	}
   	var prod = {}
   	if($scope.selected){
   		prod.id = $scope.selected.id;
@@ -34,35 +62,20 @@ myAppModule.controller('ProductController',
   		prod.price= $scope.selected.pricing.price
   	}
   	var dt = JSON.stringify(prod);
-  	console.log('my data ' + dt)
+  	console.log('update product ' + dt)
   	$http({
           url: '/updateProduct',
           method: "POST",
           data: dt,
           headers: {'Content-Type': 'application/json'}
       }).success(function (data, status, headers, config) {
-              $scope.persons = data; // assign  $scope.persons here as promise is resolved here 
+    	  		growl.addInfoMessage("product updated")
+              $scope.updated = true; // assign  $scope.persons here as promise is resolved here 
           }).error(function (data, status, headers, config) {
-              $scope.status = status;
+              $scope.updated = false;
+              growl.addErrorMessage("product update failed")
           });
   }
       
-    $scope.updateProduct2=function(){
-    	console.log('update product........ ' + $scope.personName)
-    	var dt = {
-    		name: $scope.personName
-    	}
-    	console.log('my data ' + JSON.stringify(dt))
-    	$http({
-            url: '/sayHello',
-            method: "POST",
-            data: dt,
-            headers: {'Content-Type': 'application/json'}
-        }).success(function (data, status, headers, config) {
-                $scope.persons = data; // assign  $scope.persons here as promise is resolved here 
-            }).error(function (data, status, headers, config) {
-                $scope.status = status;
-            });
-    }
 });
 
