@@ -1,10 +1,6 @@
 var myAppModule = angular.module('productModule', ['ui.bootstrap']);
 myAppModule.controller('ProductController',
     function($scope, $http) {
-      var someText = {};
-      someText.message = 'Hello Angular';
-      $scope.someText = someText;
-
       $scope.getProducts=function(term){
         console.log(term);
         //var url = 'catalog-comma.json';
@@ -29,12 +25,32 @@ myAppModule.controller('ProductController',
       }
     }// end getProducts
       
-    var postData = '{"name": "jon"}'
-    $scope.updateProduct=function(){
+  $scope.updateProduct=function(){
+  	console.log('update product........ ' + $scope.selected.title)
+  	var prod = {}
+  	if($scope.selected){
+  		prod.id = $scope.selected.id;
+  		prod.title= $scope.selected.title,
+  		prod.price= $scope.selected.pricing.price
+  	}
+  	var dt = JSON.stringify(prod);
+  	console.log('my data ' + dt)
+  	$http({
+          url: '/updateProduct',
+          method: "POST",
+          data: dt,
+          headers: {'Content-Type': 'application/json'}
+      }).success(function (data, status, headers, config) {
+              $scope.persons = data; // assign  $scope.persons here as promise is resolved here 
+          }).error(function (data, status, headers, config) {
+              $scope.status = status;
+          });
+  }
+      
+    $scope.updateProduct2=function(){
     	console.log('update product........ ' + $scope.personName)
-    	var nm = $scope.personName
     	var dt = {
-    		name: nm
+    		name: $scope.personName
     	}
     	console.log('my data ' + JSON.stringify(dt))
     	$http({

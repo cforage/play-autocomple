@@ -11,7 +11,10 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET  	/products/:id	        	controllers.Application.listProducts(id: Int)
 
+
 POST   /sayHello					controllers.Application.sayHello
+
+POST   /updateProduct					controllers.Application.updateProduct
 #POST /updateProduct controllers.Application.updateProduct()
 
 #GET     /home/*file                       controllers.Assets.at(path="/app/view/bootstrap", file)

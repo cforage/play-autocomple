@@ -15,4 +15,6 @@ dist
 /.settings
 /data
 /bin
-
+.target
+.settings
+.cache

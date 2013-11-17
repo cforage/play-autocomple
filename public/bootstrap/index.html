@@ -32,12 +32,7 @@
 
     <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">Product Management {{someText.message}}</h3>
+        <h3 class="text-muted">Product Management</h3>
       </div>
 
       <h3>Manage Products</h3>
@@ -48,7 +43,8 @@
             <div class="form-group">
               <label class="col-md-4  control-label">Product Id</label>
               <div class="col-md-8">
-                <input type="text" class="form-control" ng-model="selected"  typeahead="p as p.ids for p in getProducts($viewValue) | filter:$viewValue | limitTo:8" pattern="^[0-9]{4}" required>
+                <input type="text" class="form-control" ng-model="selected" ng-blur="updateProduct()" 
+                typeahead="p as p.ids for p in getProducts($viewValue) | filter:$viewValue | limitTo:8" pattern="^[0-9]{4}" required>
               </div>
             </div>
           </div>
@@ -66,7 +62,7 @@
             <div class="form-group">
               <label class="col-md-4  control-label">Title</label>
               <div class="col-md-8">
-                <input type="text" class="form-control" value="{{selected.title}}">
+                <input type="text" class="form-control" value="{{selected.title}}" ng-model="selected.title" ng-blur="updateProduct()" ng-disabled="selected == null">
               </div>
             </div>
             <div class="form-group">
@@ -74,7 +70,7 @@
               <div class="col-md-8">
                 <div class="input-group">
                   <span class="input-group-addon">$</span>
-                  <input type="text" class="form-control" value="{{selected.pricing.price}}">
+                  <input type="text" class="form-control" value="{{selected.pricing.price}}" ng-model="selected.price" ng-disabled="selected == null">
                 </div>
               </div>
             </div>
@@ -89,7 +85,7 @@
       </form>
 
       <div class="footer">
-        <p>© Company 2013</p>
+        <p>© 2013</p>
       </div>
 
     </div> <!-- /container -->
