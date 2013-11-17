@@ -12,5 +12,8 @@ After check out, cd to the directory and execute play run.
 
 Open browser and go to http://localhost:9000/pages/bootstrap/index.html
 
+TODO:
+Unit Test
+Complete CRUD
 
 

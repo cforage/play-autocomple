@@ -36,7 +36,8 @@ object Query {
   def query(id: Int) = {
     Logger.info(s"query product id: $id")
     val col = getProductCollection()
-    val q = "/^" + id.toString + ".*/.test(this.id)"
+    // like query will only work on string so we need pattern matching here
+    val q = "/.*" + id.toString + ".*/.test(this.id)"
     val query = MongoDBObject("$where" -> q)
     val ob = col.find(query)
 

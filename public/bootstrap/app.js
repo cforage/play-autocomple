@@ -4,16 +4,18 @@ myAppModule.directive('priceValidate', function() {
 return {
     require: 'ngModel',
     link: function(scope, elm, attrs, ctrl) {
-    	elm.on('blur', function (evt) {
+    	elm.on('change', function (evt) {
     		console.dir(scope.selected)
-    	if(scope.selected.pricing.price >= scope.selected.pricing.cost) {
+    	if(scope.selected.pricing.price > scope.selected.pricing.cost) {
             ctrl.$setValidity('cost', true);
-            return scope.selected.pricing.price;
             console.log('valid price')
+            return scope.selected.pricing.price;
+            
         } else {
-            ctrl.$setValidity('cost', false);                    
-            return undefined;
+            ctrl.$setValidity('cost', false); 
             console.log('invalid price')
+            return undefined;
+           
         }
     	})
     }

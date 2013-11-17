@@ -77,11 +77,11 @@
                 <div class="input-group">
                   <span class="input-group-addon">$</span>
                   <input type="number" name="price"  class="form-control" value="{{selected.pricing.price}}" min="0.0" step="0.001"
-                  ng-model="selected.pricing.price" ng-disabled="selected == null"  ng-pattern="/\d+\.?\d*/" required price-validate>
+                  ng-model="selected.pricing.price" ng-disabled="selected == null" price-validate ng-pattern="/\d+\.?\d*/" required >
                   </div>
                   <span ng-show="productForm.price.$error.required && !productForm.price.$pristine" class="help-inline">Required</span>
-                  <span ng-show="productForm.price.$error.pattern">Not valid number!</span>
-                  <span ng-show="productForm.price.$error.cost" class="help-inline">Price must be >= cost</span>
+                  <span ng-show="productForm.price.$error.pattern && !productForm.price.$pristine">Not valid number!</span>
+                  <span ng-show="productForm.price.$error.cost && !productForm.price.$pristine" class="help-inline">Price must be > cost</span>
                   
               </div>
             </div>
