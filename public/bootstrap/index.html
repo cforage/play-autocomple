@@ -45,7 +45,7 @@
               <label class="col-md-4  control-label">Product Id</label>
               <div class="col-md-8">
                 <input type="text" name="productId" class="form-control" ng-model="selected" 
-                typeahead="p as p.ids for p in getProducts($viewValue) | filter:$viewValue | limitTo:8" ng-pattern="/^[0-9]*/" required>
+                typeahead="p as p.ids for p in getProducts($viewValue) | filter:$viewValue | limitTo:20" ng-pattern="/^[0-9]*/" required>
                 <span ng-show="searchForm.productId.$error.required && !searchForm.productId.$pristine" class="help-inline">Required</span>
                 <span ng-show="searchForm.productId.$invalid && !searchForm.productId.$pristine" class="help-inline">Id format is invalid</span>
               </div>

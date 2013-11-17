@@ -19,7 +19,7 @@ object Application extends Controller {
   }
 
   def updateProduct = Action(parse.json) { request =>
-    println("Hello " + request.body)
+    Logger.info(s"updateProduct $request.body")
     Query.update(request.body)
     Ok("Hello " + request.body)
   }
@@ -34,7 +34,7 @@ object Query {
   }
 
   def query(id: Int) = {
-    println("query id " + id)
+    Logger.info(s"query product id: $id")
     val col = getProductCollection()
     val q = "/^" + id.toString + ".*/.test(this.id)"
     val query = MongoDBObject("$where" -> q)
@@ -47,7 +47,7 @@ object Query {
 
   def update(productJson: JsValue) {
     val product = parseJson(productJson)
-    println("update " + product)
+    Logger.info(s"update $product")
     val col = getProductCollection()
     val query = MongoDBObject("id" -> product("id"))
     val update = $set("pricing.price" -> product("price"),
@@ -56,8 +56,7 @@ object Query {
   }
 
   def parseJson(product: JsValue): Map[String, Any] = {
-    //product.;=
-    println("parse " + product)
+    println("parse json: " + product)
     Map(
       "id" -> (product \ "id").asOpt[Int],
       "price" -> (product \ "price").asOpt[Double],
