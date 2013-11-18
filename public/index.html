@@ -46,9 +46,9 @@
               <div class="col-md-8">
                 <input type="text" name="productId" class="form-control" ng-model="selected" 
                 typeahead="p as p.ids for p in getProducts($viewValue) | filter:$viewValue | limitTo:20" ng-pattern="/^[0-9]*/" required>
-                <span ng-show="selected.id == null && !searchForm.productId.$pristine" class="help-inline">Product Id Invalid</span>
+                <span ng-show="selected.id == null && !searchForm.productId.$pristine" class="help-inline">Product Id could not be found</span>
                 <span ng-show="searchForm.productId.$error.required && !searchForm.productId.$pristine" class="help-inline">Required</span>
-                <span ng-show="searchForm.productId.$invalid && !searchForm.productId.$pristine" class="help-inline">Id format is invalid</span>
+                <span ng-show="searchForm.productId.$invalid && !searchForm.productId.$pristine" class="help-inline">Product Id is invalid</span>
               </div>
             </div>
           </div>
@@ -68,8 +68,8 @@
               <div class="col-md-8">
                 <input type="text" name="title" class="form-control" value="{{selected.title}}" ng-model="selected.title"
                 ng-disabled="selected.id == null" required ng-pattern="/^[a-zA-Z].*/">
-                <span ng-show="productForm.title.$error.required && selected.id!=null && !productForm.title.$pristine" class="help-inline">Required</span>
-                <span ng-show="productForm.title.$invalid && selected.id!=null && !productForm.title.$pristine " class="help-inline">Title must start with letter</span>
+                <span ng-show="productForm.title.$error.required && selected.id!=null && !productForm.title.$pristine" class="help-inline">Title is Required</span>
+                <span ng-show="productForm.title.$invalid && selected.id!=null && !productForm.title.$pristine " class="help-inline">Title Invalid: Title must start with letter</span>
               </div>
             </div>
             <div class="form-group" ng-class="{'has-error': productForm.price.$invalid && !productForm.price.$pristine}">
@@ -80,9 +80,9 @@
                   <input type="number" name="price"  class="form-control" value="{{selected.pricing.price}}" min="0.0" step="0.001"
                   ng-model="selected.pricing.price" ng-disabled="selected.id == null" price-validate ng-pattern="/\d+\.?\d*/" required >
                   </div>
-                  <span ng-show="productForm.price.$error.required && selected.id!=null && !productForm.price.$pristine " class="help-inline">Required</span>
-                  <span ng-show="productForm.price.$error.pattern && selected.id!=null && !productForm.price.$pristine">Not valid number!</span>
-                  <span ng-show="productForm.price.$error.cost && selected.id!=null && !productForm.price.$pristine" class="help-inline">Price must be > cost</span>
+                  <span ng-show="productForm.price.$error.required && selected.id!=null && !productForm.price.$pristine " class="help-inline">Price is Required</span>
+                  <span ng-show="productForm.price.$error.pattern && selected.id!=null && !productForm.price.$pristine">Price Invalid: Price must be a valid Number</span>
+                  <span ng-show="productForm.price.$error.cost && selected.id!=null && !productForm.price.$pristine" class="help-inline">Price Invalid: Price must be > cost</span>
                   
               </div>
             </div>
