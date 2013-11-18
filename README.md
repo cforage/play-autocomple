@@ -1,3 +1,6 @@
+Autocomplete Product Listing with Play
+======================================
+
 Simple listing item page with autocomplete search and inline updating use Scala Play Framework, AngularJs, Bootstrap and Mongodb.
 
 To prepare the database, do import:
@@ -10,10 +13,14 @@ Please note, currently mongodb server that will be used should disable its authe
 
 After check out, cd to the directory and execute play run.
 
-Open browser and go to http://localhost:9000/pages/bootstrap/index.html
+Open browser and go to http://localhost:9000/pages/index.html
 
-TODO:
-Unit Test
-Complete CRUD
+TODO
+====
+* Unit Test (in TDD this supposed to first)
+* Complete CRUD
+
+[r2h]: lib/github/commands/rest2html
+[r2hc]: lib/github/markups.rb#L51
 
 
