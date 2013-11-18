@@ -25,8 +25,11 @@ Open browser and go to [http://localhost:9000/pages/index.html](http://localhost
 
 TODO
 ====
-* Unit Test (in TDD this supposed to first)
-* Complete CRUD
+* Unit Test (in TDD this supposed to do first :D)
+* Complete CRUD 
+* Application Authentication
+
+(I was planning to write the whole CRUD even plus web application authentication. However, even for this simple page is little bit harder that I expected. Not some more time to get use with the whole stacks)
 
 [r2h]: lib/github/commands/rest2html
 [r2hc]: lib/github/markups.rb#L51
