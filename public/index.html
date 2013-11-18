@@ -42,11 +42,11 @@
         <div class="box-outer">
           <div class="box">
             <div class="form-group" ng-class="{'has-error': searchForm.productId.$invalid && !searchForm.productId.$pristine}">
-              <label class="col-md-4  control-label">Product Id</label>
+              <label class="col-md-4  control-label">Product ID</label>
               <div class="col-md-8">
                 <input type="text" name="productId" class="form-control" ng-model="selected" 
                 typeahead="p as p.ids for p in getProducts($viewValue) | filter:$viewValue | limitTo:20" ng-pattern="/^[0-9]*/" required>
-                <span ng-show="selected.id == null && !searchForm.productId.$pristine" class="help-inline">Product Id could not be found</span>
+                <span ng-show="selected.id == null && !searchForm.productId.$pristine" class="help-inline">Product {{selected.id}} could not be found</span>
                 <span ng-show="searchForm.productId.$error.required && !searchForm.productId.$pristine" class="help-inline">Required</span>
                 <span ng-show="searchForm.productId.$invalid && !searchForm.productId.$pristine" class="help-inline">Product Id is invalid</span>
               </div>
@@ -58,7 +58,7 @@
         <div class="box-outer">
           <div class="box">
             <div class="form-group">
-              <label class="col-md-4  control-label">Id</label>
+              <label class="col-md-4  control-label">ID</label>
               <div class="col-md-8">
                 <p class="form-control-static">{{selected.id}}</p>
               </div>
