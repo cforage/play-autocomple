@@ -29,7 +29,7 @@ TODO
 * Complete CRUD 
 * Application Authentication
 
-(I was planning to write the whole CRUD even plus web application authentication. However, even for this simple page is little bit harder that I expected. Not some more time to get use with the whole stacks)
+(I was planning to write the whole CRUD even plus web application authentication. However, even for this simple page is little bit harder that I expected. Need some more time to get used with the whole stacks)
 
 [r2h]: lib/github/commands/rest2html
 [r2hc]: lib/github/markups.rb#L51
